@@ -1,23 +1,26 @@
 import json
-
+# master list of class names and job details 
 class_rename = {('Magician',32):"Bishop",('Magician',22):"Archmage(I/L)",('Magician',12):"Archmage(F/P)",
                 ('Thief',22):"Shadower",('Thief',12):"Night Lord",
                 ('Bowman',22):"Marksman",('Bowman',12):"Bowmaster",
                 ('Warrior',32):"Dark Knight",('Warrior',22):"Paladin",('Warrior',12):"Hero",
                 ('Pirate',32):"Cannon Master",('Pirate',22):"Corsair",('Pirate',12):"Buccaneer"}
 
-
+# read the playerData file
 file = open("playerData.txt","r",encoding="UTF-8")
 text = file.read()
+
+# clean the data
 json_strings = text.strip().replace("'","\"").replace("False,","\"False\",").split("\n")
 for i in range(len(json_strings)):
-
     json_strings[i] = json.loads(json_strings[i])
 
 
 # 280,285,290,295 respectively
 classes_all = [{},{},{},{}]
 class_name = set()
+
+# count the jobs
 for i in json_strings:
     maple_class = (i["jobName"],i["jobDetail"])
     # get a list of class names for later
@@ -32,9 +35,8 @@ for i in json_strings:
                 classes_all[j][maple_class] = 0
             classes_all[j][maple_class] += 1
 
-formatting_short = "|{}\t\t\t\t|{}\t|{}\t|{}\t|{}|"
-formatting_long = "|{}\t\t\t|{}\t|{}\t|{}\t|{}|"
 
+# clean up class names
 for index in range(4):
     new_dict = {}
     for i,j in classes_all[index].items():
@@ -50,7 +52,11 @@ class_name = list(class_name)
 class_name.sort()
 
 
-# format for markdown table
+
+# format for markdown table and print
+
+formatting_short = "|{}\t\t\t\t|{}\t|{}\t|{}\t|{}|"
+formatting_long = "|{}\t\t\t|{}\t|{}\t|{}\t|{}|"
 print(formatting_short.format("class","280+","285+","290+", "295+"))
 print("|:-|:-|:-|:-|:-|")
 
