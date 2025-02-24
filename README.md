@@ -1,6 +1,6 @@
 # MaplestoryStatistics
 
-First pull from nexon's ranking api and pipe the stdout into a text file
+First pull from nexon's ranking api and pipe the stdout into a text file. If this file already exists then delete it as this will append to that file and will not overwrite the file.
 ```
 python3 api_pull.py >> playerData.txt
 ```
